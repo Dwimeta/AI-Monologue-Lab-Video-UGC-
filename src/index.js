@@ -1,6 +1,7 @@
 import { analyzeProduct, generateMonologue } from "./gemini.js";
 import { buildPrompt } from "./promptBuilder.js";
 import { buildScenePlan } from "./scenePlanner.js";
+import { buildVideoPrompt } from "./videoPromptBuilder.js";
 
 async function main() {
   try {
@@ -19,8 +20,12 @@ async function main() {
 
     const scenePlan = buildScenePlan(product, monologue);
 
+    const videoPrompts = scenePlan.map((scene) => buildVideoPrompt(product, scene)
+);
+
     console.log(monologue);
     console.log(scenePlan);
+    console.log(videoPrompts);
 
   } catch (error) {
     console.error("Pipeline Error:", error);
